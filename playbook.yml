@@ -1,0 +1,6 @@
+
+---
+- name: Set up Continuous Delivery pipelines
+  hosts: all
+  roles:
+    - gocd-server

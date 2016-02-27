@@ -1,0 +1,25 @@
+---
+- name: Copy GoCD yum repository
+  copy:
+    src=gocd.repo
+    dest=/etc/yum.repos.d/
+    owner=root
+    group=root
+    mode=0644
+  become: yes
+
+- name: Clean yum repository
+  command: yum clean all
+  become: yes
+
+- name: Install GoCD server
+  yum:
+    name=go-server
+    state=installed
+  become: yes
+
+- name: Start GoCD server
+  service:
+    name=go-server
+    state=started
+  become: yes

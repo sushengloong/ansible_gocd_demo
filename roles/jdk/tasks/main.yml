@@ -1,0 +1,18 @@
+---
+- stat:
+    path=/usr/bin/javac
+  register: javac_stats
+
+- include: install-java.yml
+  become: yes
+  when: not javac_stats.stat.exists
+
+- name: Add JAVA_HOME environment variariables in bashrc
+  lineinfile:
+    dest='~/.bashrc'
+    line='export JAVA_HOME={{ java_home }}'
+
+- name: Add Java bin folder to path in bashrc
+  lineinfile:
+    dest='~/.bashrc'
+    line='export PATH=$PATH:$JAVA_HOME/bin'

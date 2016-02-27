@@ -1,0 +1,13 @@
+---
+- name: Download JDK RPM
+  get_url:
+    url="http://download.oracle.com/otn-pub/java/jdk/8u73-b02/{{ jdk_rpm_filename }}"
+    dest="/tmp"
+    headers="Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F;oraclelicense=accept-securebackup-cookie"
+    validate_certs=no
+
+- name: Install JDK RPM
+  yum:
+    name="/tmp/{{ jdk_rpm_filename }}"
+    state=present
+  become: yes
